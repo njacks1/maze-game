@@ -22,7 +22,6 @@ struct coordinates{
 
 coordinates count_and_read_how_many_strings(string row_of_maze[], int const predefined_size){
 	int counter = 0;
-	int counter_2 = 0;
 	coordinates maze_dimensions;
 	maze_dimensions.xvar = 0;
 	maze_dimensions.yvar = 0;
@@ -37,21 +36,13 @@ coordinates count_and_read_how_many_strings(string row_of_maze[], int const pred
 			fin >> row_of_maze[i];
 			if (fin.fail()){
 				maze_dimensions.yvar = counter;
+				maze_dimensions.xvar = row_of_maze[0].length();
 				fin.close();
+				return(maze_dimensions);
 				break;
 			}
 			else{
 				counter++;
-			}
-		}
-		for (int j = 0; j < predefined_size; j++){		//issue here
-			if (row_of_maze[0][j] != ' '){
-				counter_2++;
-			}
-			else{
-				maze_dimensions.xvar = counter;
-				return(maze_dimensions);
-				break;
 			}
 		}
 	}
@@ -62,8 +53,8 @@ coordinates detection_of_plus(string row_of_maze[], coordinates maze_dimensions)
 	for (int j = 0; j < maze_dimensions.yvar; j++){      //the y coordinate
 		for (int i = 0; i<maze_dimensions.xvar; i++){    //the x coordinate
 			if (row_of_maze[j][i] == '+'){
-				plus_pos.xvar = i;
-				plus_pos.yvar = j;
+				plus_pos.xvar = i+1;
+				plus_pos.yvar = j+1;
 				return(plus_pos);
 				break;
 			}
@@ -76,8 +67,8 @@ coordinates detection_of_money(string row_of_maze[], coordinates maze_dimensions
 	for (int j = 0; j<maze_dimensions.yvar; j++){      //the y coordinate
 		for (int i = 0; i<maze_dimensions.xvar; i++){    //the x coordinate
 			if (row_of_maze[j][i] == '$'){
-				money_pos.xvar = i;
-				money_pos.yvar = j;
+				money_pos.xvar = i+1;
+				money_pos.yvar = j+1;
 				return(money_pos);
 				break;
 			}
@@ -100,5 +91,7 @@ void main(){
 	maze_dimensions = count_and_read_how_many_strings(row_of_maze, predefined_size); //need to count how many strings there are
 	money_pos = detection_of_money(row_of_maze, maze_dimensions);
 	plus_pos = detection_of_plus(row_of_maze, maze_dimensions);
-	//using a matrix to define the strings by character
+	print_maze(row_of_maze, maze_dimensions.yvar);
+	cout << "money sign: x = " << money_pos.xvar << " y = " << money_pos.yvar << endl;
+	cout << "plus sign: x = " << plus_pos.xvar << " y = " << plus_pos.yvar << endl;
 }
