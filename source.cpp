@@ -139,6 +139,15 @@ void swap(string row_of_maze[], coordinates plus_pos, coordinates money_pos, int
 	row_of_maze[temp_pos_y][temp_pos_x] = temp;
 }
 
+int checker(string row_of_maze[], coordinates plus_pos, coordinates money_pos, coordinates maze_dimensions, int new_pos_y, int new_pos_x){
+	if (row_of_maze[new_pos_y][new_pos_x] == '-' && new_pos_y <= maze_dimensions.yvar && new_pos_y > 0){
+		return(1);
+	}
+	else if (row_of_maze[new_pos_y][new_pos_x] == '$'){
+		return(2);
+	}
+}
+
 void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_pos, coordinates maze_dimensions)		//initializes the game
 {
 	int const scale = 50;
@@ -152,7 +161,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 		{
 			int new_pos_x = plus_pos.xvar;
 			int new_pos_y = plus_pos.yvar - 1;
-			if (row_of_maze[new_pos_y][new_pos_x] == '-' && new_pos_y <= maze_dimensions.yvar && new_pos_y > 0)
+			if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 1)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -162,7 +171,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 				plus_pos.xvar = new_pos_x;
 				plus_pos.yvar = new_pos_y;
 			}
-			else if (row_of_maze[new_pos_y][new_pos_x] == '$')
+			else if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 2)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -171,7 +180,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 				draw_box(plus_pos.xvar, plus_pos.yvar, scale, color);
 				plus_pos.xvar = new_pos_x;
 				plus_pos.yvar = new_pos_y;
-				wait(.5);
+				wait(.1);
 				cout << endl << "You won!" << endl;
 				break;
 			}
@@ -180,7 +189,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 		{
 			int new_pos_x = plus_pos.xvar;
 			int new_pos_y = plus_pos.yvar + 1;
-			if (row_of_maze[new_pos_y][new_pos_x] == '-' && new_pos_y <= maze_dimensions.yvar && new_pos_y > 0)
+			if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 1)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -190,7 +199,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 				plus_pos.xvar = new_pos_x;
 				plus_pos.yvar = new_pos_y;
 			}
-			else if (row_of_maze[new_pos_y][new_pos_x] == '$')
+			else if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 2)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -208,7 +217,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 		{
 			int new_pos_x = plus_pos.xvar - 1;
 			int new_pos_y = plus_pos.yvar;
-			if (row_of_maze[new_pos_y][new_pos_x] == '-' && new_pos_x  <= maze_dimensions.xvar && new_pos_x > 0)
+			if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 1)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -218,7 +227,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 				plus_pos.xvar = new_pos_x;
 				plus_pos.yvar = new_pos_y;
 			}
-			else if (row_of_maze[new_pos_y][new_pos_x] == '$')
+			else if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 2)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -236,7 +245,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 		{	
 			int new_pos_x = plus_pos.xvar + 1;
 			int new_pos_y = plus_pos.yvar;
-			if (row_of_maze[new_pos_y][new_pos_x] == '-' && new_pos_x <= maze_dimensions.xvar && new_pos_x > 0)
+			if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 1)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
@@ -246,7 +255,7 @@ void start_game(string row_of_maze[], coordinates plus_pos, coordinates money_po
 				plus_pos.xvar = new_pos_x;
 				plus_pos.yvar = new_pos_y;
 			}
-			else if (row_of_maze[new_pos_y][new_pos_x] == '$')
+			else if (checker(row_of_maze, plus_pos, money_pos, maze_dimensions, new_pos_y, new_pos_x) == 2)
 			{
 				swap(row_of_maze, plus_pos, money_pos, new_pos_y, new_pos_x);
 				color[0] = 1; color[1] = 1; color[2] = 1;
